@@ -26,12 +26,6 @@ function App() {
       <Router>
         <Header />
         <main>
-          <Route path="/" component={Home} exact />
-          <Route path="/shop" component={Shop} />
-          <Route path="/categories" component={Categories} />
-          <Route path="/products/:slug" component={Product} />
-          <Route path="/register" component={Register} />
-          <Route path="/login" component={Login} />
           {loggedIn ? (
             <>
               <Route path="/cart/:id?" component={Cart} />
