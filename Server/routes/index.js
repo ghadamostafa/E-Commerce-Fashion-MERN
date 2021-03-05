@@ -1,9 +1,23 @@
-const products = require('./productsRoutes');
-const users = require('./usersRoutes');
-const auth = require('./authRoutes');
+const products = require("./store/productsRoutes");
+const users = require("./admin/usersRoutes");
+const auth = require("./store/authRoutes");
+const tags = require("./store/tagsRoutes");
+const categories = require("./admin/categoriesRoutes");
+const home = require("./store/homeRoutes");
+const filters = require("./store/filtersRoutes");
+const adminProducts = require("./admin/productsRoutes.admin");
+const adminCategories = require("./admin/categotiesRoutes.admin");
+const adminTags = require("./admin/tagsRoutes.admin");
 
 module.exports = {
-    products,
-    users,
-    auth
-}
+  products,
+  tags,
+  categories,
+  users,
+  home,
+  auth,
+  filters,
+  adminProducts,
+  adminCategories,
+  adminTags,
+};

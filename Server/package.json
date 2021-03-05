@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "devStart": "nodemon server"
+    "dev": "nodemon server"
   },
   "author": "Ghada Mustafa",
   "license": "ISC",
@@ -20,8 +20,9 @@
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.11.18",
     "mongoose-float": "^1.0.4",
+    "mongoose-slug-updater": "^3.3.0",
+    "mongoose-tree": "^0.2.2",
     "mongoose-unique-validator": "^2.0.3",
-    "mongoose-url-slugs": "^1.0.2",
     "validator": "^13.5.2"
   },
   "devDependencies": {

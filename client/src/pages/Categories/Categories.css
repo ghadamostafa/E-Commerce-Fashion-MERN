@@ -1,0 +1,18 @@
+.title{
+    font-style: normal;
+    color: #222;
+    margin-bottom: .5rem;
+    line-height: 1.4;
+    font-weight: 400;
+    font-family: opensans,"Helvetica Neue",Helvetica,Helvetica,Arial,sans-serif;
+}
+.category-font{
+    color: #959595;
+    content: "Example";
+    font-size: 12px;
+    font-weight: 700;
+    left: 15px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    top: 15px;
+}

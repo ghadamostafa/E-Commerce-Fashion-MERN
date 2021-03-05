@@ -5,6 +5,7 @@ async function verifyAccessToken(request,response,next){
     const token = request.cookies['token'];
     try {
         if (!token) {
+            // redirect to login
           return response.status(401).json('Please Login and try again')
         }
         const decryptedUser = await jwt.verify(token, process.env.ACCSESS_TOKEN_SECRET);

@@ -1,0 +1,35 @@
+.product-title{
+    font-size: 22px;
+    font-weight: 700;
+    color: #f51167;
+    text-transform: uppercase;
+    margin-bottom: 0;
+    font-family: "Roboto",sans-serif;
+}
+.product-desc{
+    color: #4f4f4f;
+    margin-top: 20px;
+}
+.product-price{
+    font-weight: 500;
+}
+
+.product-category{
+    color: #6c757d !important;
+    text-transform: uppercase !important;
+    font-size: 80%;
+    font-weight: 400;
+}
+.add-to-cart-btn{
+    background-color: #f51167 !important;
+    margin-top: 10px;
+    color: white !important;
+
+}
+
+.product-image{
+    height: 300px !important;
+}
+.in-stock-color{
+    color: #f51167 !important;
+}

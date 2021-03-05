@@ -1,0 +1,18 @@
+
+.header-bottom
+{
+    background-color:#212529 !important
+}
+.menu-btn-color{
+    background-color: #212529 !important;
+    color: white !important;
+}
+.header-bottom li:hover>a,.header-top li>a ,.menu-btn-color:hover,.header-top li>.drowpdown>a{
+    color: #f51167 !important;
+}
+.header-top li>span:hover{
+    cursor: pointer;
+}
+.searchBar{
+    border-radius: 20px !important;
+}

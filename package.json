@@ -1,0 +1,23 @@
+{
+  "name": "e-commerce",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "concurrently \"cd Server && npm run dev\" \"cd client && npm start\" "
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ghadamostafa/E-Commerce-Fashion-MERN.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ghadamostafa/E-Commerce-Fashion-MERN/issues"
+  },
+  "homepage": "https://github.com/ghadamostafa/E-Commerce-Fashion-MERN#readme",
+  "dependencies": {
+    "concurrently": "^6.0.0"
+  }
+}
