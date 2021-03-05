@@ -11,6 +11,9 @@ const TopNavBar = () => {
         setLoggedIn(false);
         history.push('/login')
     }
+    const showCart=()=>{
+        (loggedIn?history.push('/cart'):history.push('/login'))
+    }
     return (
         <nav className="navbar navbar-expand-md navbar-light shadow-sm header-top" >
             <div className="container">
@@ -29,9 +32,9 @@ const TopNavBar = () => {
                     </ul>
                     <ul className="navbar-nav ml-auto">
                         <li className="nav-item ">
-                            <Link className="nav-link" to="/cart">
+                            <div className="nav-link cart" onClick={showCart}>
                                 <span> <i className="fa fa-shopping-cart"></i> Cart</span>
-                            </Link>
+                            </div>
                         </li>
                         <li className="nav-item ">
                             {!loggedIn ?

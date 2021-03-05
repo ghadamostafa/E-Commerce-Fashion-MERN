@@ -7,10 +7,10 @@
     background-color: #212529 !important;
     color: white !important;
 }
-.header-bottom li:hover>a,.header-top li>a ,.menu-btn-color:hover,.header-top li>.drowpdown>a{
+.header-bottom li:hover>a,.header-top li>a ,.menu-btn-color:hover,.header-top li>.drowpdown>a,.cart{
     color: #f51167 !important;
 }
-.header-top li>span:hover{
+.header-top li>span:hover,.cart{
     cursor: pointer;
 }
 .searchBar{

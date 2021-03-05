@@ -1,7 +1,12 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
+import "antd/dist/antd.css";
+import { Collapse } from "antd";
+import { CaretRightOutlined } from "@ant-design/icons";
 import "./Filters.css";
+
+const { Panel } = Collapse;
 const Filters = ({ getProducts, pageNumber }) => {
   let [categories, setCategories] = useState([]);
   let [tags, setTags] = useState([]);
@@ -42,11 +47,6 @@ const Filters = ({ getProducts, pageNumber }) => {
     fetchProducts();
   }, [categoryFilter, tagFilter, params, pageNumber]);
 
-  const toggleSubmenu = () => {
-    submenuToggle === "hide"
-      ? setSubmenuToggle("show")
-      : setSubmenuToggle("hide");
-  };
   const highlightCategory = () => {};
   return (
     <section>
@@ -56,24 +56,31 @@ const Filters = ({ getProducts, pageNumber }) => {
       </h6>
       {categories.map((category) => {
         return (
-          <div className="mt-2 mb-2 pl-2" key={category._id}>
-             <ul className="list-unstyled list-inline">
-                        <li >
-                            <Link onClick={toggleSubmenu} className="category-color" to="#"> 
-                            &gt; {category.name} </Link>
-                            <ul className={submenuToggle}>
-                                {category.subCategories.map((subCategory) => {
-                                    return <li key={subCategory._id} 
-                                    onClick={highlightCategory}>
-                                    <Link onClick={() => setCategoryFilter(subCategory.slug)} 
-                                        className="category-color" to="#">
-                                            {subCategory.name}
-                                    </Link></li>
-                                })}
-                            </ul>
-                        </li>
-                    </ul> 
-           
+          <div className="mt-2 mb-2 " key={category._id}>
+            <Collapse
+              bordered={false}
+              defaultActiveKey={["1"]}
+              ghost
+              className="site-collapse-custom-collapse"
+            >
+              <Panel
+                key={category._id}
+                header={category.slug}
+                className="site-collapse-custom-panel"
+              >
+                {category.subCategories.map((subCategory) => {
+                  return (
+                    <Link 
+                      onClick={() => setCategoryFilter(subCategory.slug)}
+                      className="category-color d-block ml-4"
+                      to="#"
+                    >
+                      {subCategory.name}
+                    </Link>
+                  );
+                })}
+              </Panel>
+            </Collapse>
           </div>
         );
       })}

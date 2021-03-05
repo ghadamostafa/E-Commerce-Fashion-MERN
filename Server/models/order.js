@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 const Float = require('mongoose-float').loadType(mongoose);
 
-
-
 const orderSchema = new schema({
-    // customer_address:{},
-    // customer_phone:{},
+    customer_address:{
+      type:String,
+      required:true
+    },
+    customer_phone:{
+      type:String,
+      required:true
+    },
     totalPrice: {
         type: Float,
         required: true,
@@ -23,12 +27,6 @@ const orderSchema = new schema({
           },
         },
       ],
-      paymentResult: {
-        id: { type: String },
-        status: { type: String },
-        update_time: { type: String },
-        email_address: { type: String },
-      },
     user: [ {type : mongoose.Schema.ObjectId, ref : 'user'} ]
 
 },{

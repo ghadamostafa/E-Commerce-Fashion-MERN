@@ -52,18 +52,5 @@ const productSchema = new schema({
 productSchema.plugin(slug);
 productSchema.plugin(uniqueValidator);
 
-// productSchema.pre('save', function (next) {
-//     const product = this
-//     if (product.isModified('categories')) {
-       
-//         // Category.findOne({_id:product.categories}).then((category)=>{
-//         //     category.products=product._id;
-//         //     category.save()
-//         // }).catch((error)=>{
-//         //     throw error;
-//         // })
-//     }
-//     next()
-// })
 
 module.exports = Product = mongoose.model('product', productSchema);
