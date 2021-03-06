@@ -9,7 +9,7 @@ const AuthContextProvider = (props) => {
         const result = await axios.get(`/login/status`);
         setLoggedIn(result.data);
     }
-    const user = sessionStorage.getItem('user');
+    const user = JSON.parse(sessionStorage.getItem('user')) ;
     const userName=user?user.name:null
     useEffect(() => {
         checkLogin();

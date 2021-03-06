@@ -82,7 +82,7 @@ const Filters = ({ getProducts, pageNumber }) => {
                 >
                   {category.subCategories.map((subCategory) => {
                     return (
-                      <Radio value={subCategory.slug}>{subCategory.slug}</Radio>
+                      <Radio value={subCategory.slug} key={subCategory._id}>{subCategory.slug}</Radio>
                       // <Link
                       //   onClick={() => setCategoryFilter(subCategory.slug)}
                       //   className="category-color d-block ml-4"

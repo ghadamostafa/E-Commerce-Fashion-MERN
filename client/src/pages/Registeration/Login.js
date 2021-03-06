@@ -16,7 +16,7 @@ const Login = () => {
             try {
                 const result=await axios.post(`/login`, data);
                 const user=result.data.data;
-                sessionStorage.setItem('user',user);
+                sessionStorage.setItem('user',JSON.stringify(user) );
                 swal(`login successful,welcome ${user.name} :)`)
                 history.push('/')
                 setLoggedIn(true);

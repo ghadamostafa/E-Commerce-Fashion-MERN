@@ -19,7 +19,7 @@ const Register = () => {
             try {
                 const result = await axios.post(`/register`, data);
                 const user = result.data.data;
-                sessionStorage.setItem('user',user);
+                sessionStorage.setItem('user',JSON.stringify(user));
                 swal(`your registeration completed successfully ,welcome ${user.name} :)`)
                 history.push('/');
                 setLoggedIn(true)

@@ -6,9 +6,11 @@ import AuthContext from '../../context/AuthContext'
 const TopNavBar = () => {
     const {loggedIn,setLoggedIn,userName }=useContext(AuthContext)
     const history = useHistory();
+    console.log(userName);
     const logoutHandler=async()=> {
         await axios.post(`/logout`);
         setLoggedIn(false);
+        sessionStorage.removeItem('user');
         history.push('/login')
     }
     const showCart=()=>{
@@ -42,9 +44,7 @@ const TopNavBar = () => {
                                     <span> <i className="fa fa-user fa-fw "></i> Sign In</span>
                                 </Link>
                                 : <NavDropdown title={userName} className="drowpdown">
-                                    <Link className="nav-link" to="#">
-                                        <NavDropdown.Item>Orders</NavDropdown.Item>
-                                    </Link>
+                                    <NavDropdown.Item>Orders</NavDropdown.Item>
                                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             }
