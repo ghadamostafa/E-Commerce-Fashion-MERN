@@ -1,12 +1,13 @@
 import React, { useContext } from 'react'
 import { Link,useHistory } from 'react-router-dom'
+import {LinkContainer} from 'react-router-bootstrap'
 import { NavDropdown } from 'react-bootstrap'
 import axios from 'axios';
 import AuthContext from '../../context/AuthContext'
 const TopNavBar = () => {
-    const {loggedIn,setLoggedIn,userName }=useContext(AuthContext)
+    const {loggedIn,setLoggedIn,user }=useContext(AuthContext)
     const history = useHistory();
-    console.log(userName);
+    console.log(user.role);
     const logoutHandler=async()=> {
         await axios.post(`/logout`);
         setLoggedIn(false);
@@ -43,8 +44,13 @@ const TopNavBar = () => {
                                 <Link className="nav-link" to="/login">
                                     <span> <i className="fa fa-user fa-fw "></i> Sign In</span>
                                 </Link>
-                                : <NavDropdown title={userName} className="drowpdown">
-                                    <NavDropdown.Item>Orders</NavDropdown.Item>
+                                : <NavDropdown title={user.name} className="drowpdown">
+                                    {(user.role == 'admin')?
+                                    <LinkContainer to="/admin/products">
+                                     <NavDropdown.Item >Products Control</NavDropdown.Item>
+                                    </LinkContainer>
+                                : <NavDropdown.Item >Orders</NavDropdown.Item>}
+                                   
                                     <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
                                 </NavDropdown>
                             }

@@ -120,7 +120,7 @@ class ProductsControl extends React.Component {
       const tags = data.data;
       this.setState({ ...this.state, tags });
     };
-    const user=sessionStorage.getItem('user');
+    const user=JSON.parse(sessionStorage.getItem('user')) ;
     console.log(user);
     if (user && user.role=="admin") {
       fetchProducts();

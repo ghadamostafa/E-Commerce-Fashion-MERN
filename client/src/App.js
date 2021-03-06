@@ -19,7 +19,7 @@ import Cart from "./pages/Cart/Cart";
 
 function App() {
   axios.defaults.withCredentials = true;
-  const { loggedIn } = useContext(AuthContext);
+  const { loggedIn, user } = useContext(AuthContext);
   return (
     <CartContextProvider>
       <Router>
@@ -34,9 +34,11 @@ function App() {
           {loggedIn && (
             <>
               <Route path="/cart/:id?" component={Cart} />
-              <Route path="/admin/products" component={ProductsControl} />
+              {user.role == "admin" && (
+                <Route path="/admin/products" component={ProductsControl} />
+              )}
             </>
-          ) }
+          )}
         </main>
         <Footer />
       </Router>
