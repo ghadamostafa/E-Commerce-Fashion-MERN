@@ -31,9 +31,6 @@ const Shop = () => {
     }
     return (
         <Container>
-            {/* <div className="back-link mt-4">
-                <a href="#">&lt;&lt; back </a>
-            </div> */}
             <Row className="mt-4">
                 <Col md={2}>
                     <Filters getProducts={getProducts} pageNumber={pageNumber} />

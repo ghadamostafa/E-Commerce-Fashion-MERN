@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import "antd/dist/antd.css";
-import { Collapse } from "antd";
-import { CaretRightOutlined } from "@ant-design/icons";
-import "./Filters.css";
+import { Collapse, Tag } from "antd";
+// import { Menu } from 'antd';
+// import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 
+import "./Filters.css";
+const { CheckableTag } = Tag;
 const { Panel } = Collapse;
 const Filters = ({ getProducts, pageNumber }) => {
   let [categories, setCategories] = useState([]);
   let [tags, setTags] = useState([]);
-  let [submenuToggle, setSubmenuToggle] = useState("hide");
   let [categoryFilter, setCategoryFilter] = useState("");
   let [tagFilter, setTagFilter] = useState("");
+  let [selectedTag, setSelectedTag] = useState("");
   const params = useLocation().search;
   let url = "/products";
 
@@ -46,7 +48,11 @@ const Filters = ({ getProducts, pageNumber }) => {
     };
     fetchProducts();
   }, [categoryFilter, tagFilter, params, pageNumber]);
-
+  const handleTagChange = (tag, checked) => {
+    console.log(tag);
+    if (checked) setSelectedTag(tag);
+    setTagFilter(tag.slug);
+  };
   const highlightCategory = () => {};
   return (
     <section>
@@ -70,7 +76,7 @@ const Filters = ({ getProducts, pageNumber }) => {
               >
                 {category.subCategories.map((subCategory) => {
                   return (
-                    <Link 
+                    <Link
                       onClick={() => setCategoryFilter(subCategory.slug)}
                       className="category-color d-block ml-4"
                       to="#"
@@ -91,17 +97,15 @@ const Filters = ({ getProducts, pageNumber }) => {
           Tags
         </h6>
         <div>
-          {tags.map((tag) => {
-            return (
-              <button
-                key={tag._id}
-                className="btn btn-outline-secondary mr-2 mt-2"
-                onClick={() => setTagFilter(tag.slug)}
-              >
-                {tag.name}
-              </button>
-            );
-          })}
+          {tags.map((tag) => (
+            <CheckableTag
+              key={tag._id}
+              checked={selectedTag.slug === tag.slug}
+              onChange={(checked) => handleTagChange(tag, checked)}
+            >
+              {tag.slug}
+            </CheckableTag>
+          ))}
         </div>
       </section>
     </section>
