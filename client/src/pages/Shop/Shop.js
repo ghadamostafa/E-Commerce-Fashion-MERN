@@ -16,6 +16,7 @@ const Shop = () => {
       setNumResults(data.productsCount);
       setProducts(data.data);
       setPagesCount(data.pagesCount);
+      setErrorMessage('');
     } else {
       setNumResults(0);
       setProducts([]);

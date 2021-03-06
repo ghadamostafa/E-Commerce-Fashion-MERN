@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { Link, useLocation } from "react-router-dom";
 import "antd/dist/antd.css";
-import { Collapse, Tag } from "antd";
+import { Collapse, Tag, Radio } from "antd";
 // import { Menu } from 'antd';
 // import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 
@@ -15,6 +15,7 @@ const Filters = ({ getProducts, pageNumber }) => {
   let [categoryFilter, setCategoryFilter] = useState("");
   let [tagFilter, setTagFilter] = useState("");
   let [selectedTag, setSelectedTag] = useState("");
+  let [selectedCategory, setSelectedCategory] = useState("");
   const params = useLocation().search;
   let url = "/products";
 
@@ -53,43 +54,50 @@ const Filters = ({ getProducts, pageNumber }) => {
     if (checked) setSelectedTag(tag);
     setTagFilter(tag.slug);
   };
-  const highlightCategory = () => {};
+  const onChange = (e) => {
+    console.log("radio checked", e.target.value);
+    setSelectedCategory(e.target.value);
+    setCategoryFilter(e.target.value);
+  };
   return (
     <section>
       {/* categories filter */}
       <h6 className="text-uppercase font-weight-bold mb-3 filter-title-color">
         Categories
       </h6>
-      {categories.map((category) => {
-        return (
-          <div className="mt-2 mb-2 " key={category._id}>
-            <Collapse
-              bordered={false}
-              defaultActiveKey={["1"]}
-              ghost
-              className="site-collapse-custom-collapse"
-            >
-              <Panel
-                key={category._id}
-                header={category.slug}
-                className="site-collapse-custom-panel"
+      <Radio.Group onChange={onChange} value={selectedCategory}>
+        {categories.map((category) => {
+          return (
+            <div className="mt-2 mb-2 " key={category._id}>
+              <Collapse
+                bordered={false}
+                defaultActiveKey={["1"]}
+                ghost
+                className="site-collapse-custom-collapse"
               >
-                {category.subCategories.map((subCategory) => {
-                  return (
-                    <Link
-                      onClick={() => setCategoryFilter(subCategory.slug)}
-                      className="category-color d-block ml-4"
-                      to="#"
-                    >
-                      {subCategory.name}
-                    </Link>
-                  );
-                })}
-              </Panel>
-            </Collapse>
-          </div>
-        );
-      })}
+                <Panel
+                  key={category._id}
+                  header={category.slug}
+                  className="site-collapse-custom-panel"
+                >
+                  {category.subCategories.map((subCategory) => {
+                    return (
+                      <Radio value={subCategory.slug}>{subCategory.slug}</Radio>
+                      // <Link
+                      //   onClick={() => setCategoryFilter(subCategory.slug)}
+                      //   className="category-color d-block ml-4"
+                      //   to="#"
+                      // >
+                      //   {subCategory.name}
+                      // </Link>
+                    );
+                  })}
+                </Panel>
+              </Collapse>
+            </div>
+          );
+        })}
+      </Radio.Group>
       {/* tags filter */}
       <div className="divider mt-5 mb-5 border-bottom border-secondary"></div>
       <section>
