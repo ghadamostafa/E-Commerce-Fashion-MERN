@@ -20,27 +20,23 @@ import Cart from "./pages/Cart/Cart";
 function App() {
   axios.defaults.withCredentials = true;
   const { loggedIn } = useContext(AuthContext);
-  console.log(AuthContext);
   return (
     <CartContextProvider>
       <Router>
         <Header />
         <main>
-          {loggedIn ? (
+          <Route path="/" component={Home} exact />
+          <Route path="/shop" component={Shop} />
+          <Route path="/categories" component={Categories} />
+          <Route path="/products/:slug" component={Product} />
+          <Route path="/register" component={Register} />
+          <Route path="/login" component={Login} />
+          {loggedIn && (
             <>
               <Route path="/cart/:id?" component={Cart} />
               <Route path="/admin/products" component={ProductsControl} />
             </>
-          ) : (
-            <>
-              <Route path="/" component={Home} exact />
-              <Route path="/shop" component={Shop} />
-              <Route path="/categories" component={Categories} />
-              <Route path="/products/:slug" component={Product} />
-              <Route path="/register" component={Register} />
-              <Route path="/login" component={Login} />
-            </>
-          )}
+          ) }
         </main>
         <Footer />
       </Router>

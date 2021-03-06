@@ -8,7 +8,7 @@ import AuthContext from '../../context/AuthContext'
 
 const Login = () => {
     const {setLoggedIn }=useContext(AuthContext)
-    const { register, handleSubmit, watch, errors } = useForm();
+    const { register, handleSubmit, errors } = useForm();
     const history = useHistory();
     const [ errorMessage,setErrorMessage ]=useState("");
     const onSubmit = data => {
@@ -16,7 +16,7 @@ const Login = () => {
             try {
                 const result=await axios.post(`/login`, data);
                 const user=result.data.data;
-                sessionStorage.setItem('userName',user.name);
+                sessionStorage.setItem('user',user);
                 swal(`login successful,welcome ${user.name} :)`)
                 history.push('/')
                 setLoggedIn(true);

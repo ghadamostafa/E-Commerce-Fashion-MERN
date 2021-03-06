@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useContext} from "react";
 import "antd/dist/antd.css";
 import {
   Table,
@@ -89,8 +89,9 @@ class ProductsControl extends React.Component {
       },
     ];
   }
-
   componentDidMount() {
+
+      
     //fetch products from api
     const fetchProducts = async () => {
       const { data: products } = await axios.get("/admin/products");
@@ -119,9 +120,18 @@ class ProductsControl extends React.Component {
       const tags = data.data;
       this.setState({ ...this.state, tags });
     };
-    fetchProducts();
-    fetchCategories();
-    fetchTags();
+    const user=sessionStorage.getItem('user');
+    console.log(user);
+    if (user && user.role=="admin") {
+      fetchProducts();
+      fetchCategories();
+      fetchTags();
+      console.log('logged in');
+    } else {
+      console.log('not logged in');
+      this.props.history.push('/login')
+    }
+   
   }
   //show update modal
   showUpdateModal = async (record) => {

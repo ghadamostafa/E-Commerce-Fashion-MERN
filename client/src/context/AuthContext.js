@@ -9,12 +9,13 @@ const AuthContextProvider = (props) => {
         const result = await axios.get(`/login/status`);
         setLoggedIn(result.data);
     }
-    const userName = sessionStorage.getItem('userName');
+    const user = sessionStorage.getItem('user');
+    const userName=user?user.name:null
     useEffect(() => {
         checkLogin();
     }, [])
     return (
-        <AuthContext.Provider value={{ loggedIn, userName, checkLogin, setLoggedIn }}>
+        <AuthContext.Provider value={{ loggedIn, userName,user, checkLogin, setLoggedIn }}>
                 {props.children}
         </AuthContext.Provider>
     )
