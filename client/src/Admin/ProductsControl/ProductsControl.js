@@ -120,6 +120,7 @@ class ProductsControl extends React.Component {
       const tags = data.data;
       this.setState({ ...this.state, tags });
     };
+    //check if user is admin
     const user=JSON.parse(sessionStorage.getItem('user')) ;
     console.log(user);
     if (user && user.role=="admin") {
@@ -133,18 +134,6 @@ class ProductsControl extends React.Component {
     }
    
   }
-  //show update modal
-  showUpdateModal = async (record) => {
-    const { data: result } = await axios.get(`/products/${record.slug}`);
-    record.category = result.data.category._id;
-    record.tags = result.data.tags.map(({ _id }) => _id);
-    this.setState({
-      ...this.state,
-      visible: true,
-      clickedRecord: record,
-      action: "update",
-    });
-  };
   //delete product handler
   handleDelete = (key) => {
     const dataSource = [...this.state.dataSource];
@@ -184,19 +173,32 @@ class ProductsControl extends React.Component {
     });
     message.success("Product added successfully");
   };
+   //show update modal
+   showUpdateModal = async (record) => {
+    const oldRecord={...record}
+    const { data: result } = await axios.get(`/products/${record.slug}`);
+    oldRecord.category = result.data.category._id;
+    oldRecord.tags = result.data.tags.map(({ _id }) => _id);
+    this.setState({
+      ...this.state,
+      visible: true,
+      clickedRecord: oldRecord,
+      action: "update",
+    });
+  };
   //update product handler
   handleUpdate = async (values) => {
     const { data } = await axios.put(`/admin/products/${values.key}`, values);
-    const newDataSource = this.convertDataToShow(data.data);
+    const newDataSource = this.extractDataToShow(data.data);
     this.setState({ ...this.state, visible: false, dataSource: newDataSource });
 
     message.success("Product updated successfully");
   };
-  extractDataToShow = async (updatedRecord) => {
+  extractDataToShow = (updatedRecord) => {
     const tags = updatedRecord.tags.map(({ slug }) => slug);
     const newDataSource = this.state.dataSource.map((item) => {
       return item.key === this.state.clickedRecord.key
-        ? { ...updatedRecord, tags, category: updatedRecord.category.slug }
+        ? { ...updatedRecord, tags, category: updatedRecord.category.slug,key:item.key  }
         : item;
     });
     return newDataSource;
