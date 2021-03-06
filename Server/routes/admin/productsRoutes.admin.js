@@ -1,7 +1,10 @@
 const express = require('express');
 const router = express.Router();
 const Product = require('../../models/product')
+const {auth,isAdmin} =require('../../middlewares/auth')
 
+router.use(auth);
+router.use(isAdmin);
 //@get all products ... /admin/products
 router.get('/', async (request, response, next) => {
     try {

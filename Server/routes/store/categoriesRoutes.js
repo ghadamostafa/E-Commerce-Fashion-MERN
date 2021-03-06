@@ -4,7 +4,6 @@ const { Error } = require('mongoose');
 const router = express.Router();
 const Category = require('../../models/category')
 
-
 // get all main categories 
 router.get('/', async (request, response, next) => {
     try {

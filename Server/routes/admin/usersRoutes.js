@@ -1,6 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const User = require("../../models/user");
+const {auth,isAdmin} =require('../../middlewares/auth')
+
+router.use(auth);
+router.use(isAdmin);
 
 //get all users
 router.get("/", async (requset, response, next) => {

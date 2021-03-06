@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Tag = require("../../models/tag");
+const {auth,isAdmin} =require('../../middlewares/auth')
 
+router.use(auth);
+router.use(isAdmin);
 //show tag
 router.get("/:slug", async (request, response, next) => {
   try {

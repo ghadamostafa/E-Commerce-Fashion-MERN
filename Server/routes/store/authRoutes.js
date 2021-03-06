@@ -2,8 +2,9 @@ require('dotenv').config()
 const express = require('express');
 const router = express.Router();
 const User = require('../../models/user');
-const auth = require('../../middlewares/auth');
+const {auth} = require('../../middlewares/auth');
 const jwt=require('jsonwebtoken');
+
 
 router.post('/register', async (request, response, next) => {
     const newUser = new User(request.body)
@@ -21,6 +22,7 @@ router.post('/register', async (request, response, next) => {
 router.post('/login', async (request, response, next) => {
     try {
         const user = await User.findByCredentials(request.body.email, request.body.password, response)
+        if(!user.enabled)  throw new Error("you are blocked");
         await user.generateAccessToken(response);
         return response.status(200).json({ success: true, data: user });
     } catch (error) {
@@ -47,7 +49,6 @@ router.get('/login/status',async (request, response, next) => {
 router.post('/logout', auth, (request, response, next) => {
     response.clearCookie('token');
     return response.json({ "message": "logout successed" });
-    next()
 })
 
 module.exports = router;

@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const routes= require('./routes');
 const cors=require('cors');
+const {errorHandler}=require('./middlewares/errorHandling.js')
 require('dotenv').config({ path: "./.env" });
 
 
@@ -45,13 +46,8 @@ server.use('/admin/tags',routes.adminTags);
 server.use('/admin/users',routes.users);
 
 //error handling middleware
-server.use((error, request, response, next) => {   
-    const statusCode=response.statusCode ==200? 500: response.statusCode;
-    console.log(error);
-    response.status(statusCode).json({
-        message:error.message,
-        stack:process.env.NODE_ENV =='production'?null:error.stack
-    })
-     })
+server.use(errorHandler)
+
+    
 
 

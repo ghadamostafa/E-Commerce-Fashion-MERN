@@ -2,7 +2,10 @@ const express = require('express');
 const { Error } = require('mongoose');
 const router = express.Router();
 const Category = require('../../models/category')
+const {auth,isAdmin} =require('../../middlewares/auth')
 
+router.use(auth);
+router.use(isAdmin);
 //@get all categories ... /admin/categories
 router.get('/', async (request, response, next) => {
     try {
