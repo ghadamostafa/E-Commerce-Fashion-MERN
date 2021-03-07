@@ -9,6 +9,7 @@ router.use(isAdmin);
 router.get("/:slug", async (request, response, next) => {
   try {
     const tag = await Tag.findOne({ slug: request.params.slug });
+    await tag.populate('products').execPopulate()
     if (!tag) {
       response.status(404);
       throw new Error("tag not found");
