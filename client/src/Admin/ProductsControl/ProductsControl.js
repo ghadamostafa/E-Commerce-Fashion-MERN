@@ -13,13 +13,16 @@ import {
 } from "antd";
 import axios from "axios";
 const { Option } = Select;
+
 class ProductsControl extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
       visible: false,
       categories: [],
       clickedRecord: {},
+      initialValues: {},
       tags: [],
       dataSource: [],
       count: 0,
@@ -89,9 +92,8 @@ class ProductsControl extends React.Component {
       },
     ];
   }
-  componentDidMount() {
-
-      
+  
+  componentDidMount() {    
     //fetch products from api
     const fetchProducts = async () => {
       const { data: products } = await axios.get("/admin/products");
@@ -134,6 +136,8 @@ class ProductsControl extends React.Component {
     }
    
   }
+
+  
   //delete product handler
   handleDelete = (key) => {
     const dataSource = [...this.state.dataSource];
@@ -156,9 +160,11 @@ class ProductsControl extends React.Component {
   handleCancel = () => {
     this.setState({ ...this.state, visible: false });
   };
+  //show create product modal
   showCreateModal = () => {
-    this.setState({ ...this.state, visible: true, action: "create" });
+    this.setState({ ...this.state, visible: true, action: "create",initialValues:{} });
   };
+  //store product
   handleStore = async (values) => {
     const { data } = await axios.post(`/admin/products`, values);
     const newRecord = data.data;
@@ -183,8 +189,11 @@ class ProductsControl extends React.Component {
       ...this.state,
       visible: true,
       clickedRecord: oldRecord,
+      initialValues:oldRecord,
       action: "update",
     });
+    console.log(this.state.initialValues);
+
   };
   //update product handler
   handleUpdate = async (values) => {
@@ -216,10 +225,10 @@ class ProductsControl extends React.Component {
         </Button>
         <Table bordered dataSource={dataSource} columns={this.columns} />
         <Modal
-          title="Update Product"
+          title={this.state.action === "update"?"Update Product":"Create Product"}
           visible={this.state.visible}
           footer={null}
-          width="30%"
+          width="40%"
           onCancel={this.handleCancel}
         >
           <Form
@@ -228,9 +237,8 @@ class ProductsControl extends React.Component {
                 ? this.handleUpdate
                 : this.handleStore
             }
-            initialValues={
-              this.state.action === "update" ? this.state.clickedRecord : {}
-            }
+            key={this.state.action}
+            initialValues={this.state.action === "update"?this.state.initialValues:{} }
           >
             <Form.Item name="key" hidden="true">
               <Input />

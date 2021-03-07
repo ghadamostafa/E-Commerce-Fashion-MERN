@@ -34,7 +34,7 @@ function App() {
             {loggedIn && (
               <>
                 <Route path="/cart/:id?" component={Cart} />
-                {user.role == "admin" && (
+                {user&&user.role == "admin" && (
                   <Route path="/admin/products" component={ProductsControl} />
                 )}
               </>

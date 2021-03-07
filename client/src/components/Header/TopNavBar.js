@@ -7,7 +7,6 @@ import AuthContext from '../../context/AuthContext'
 const TopNavBar = () => {
     const {loggedIn,setLoggedIn,user }=useContext(AuthContext)
     const history = useHistory();
-    console.log(user.role);
     const logoutHandler=async()=> {
         await axios.post(`/logout`);
         setLoggedIn(false);
@@ -44,8 +43,8 @@ const TopNavBar = () => {
                                 <Link className="nav-link" to="/login">
                                     <span> <i className="fa fa-user fa-fw "></i> Sign In</span>
                                 </Link>
-                                : <NavDropdown title={user.name} className="drowpdown">
-                                    {(user.role == 'admin')?
+                                : <NavDropdown title={user?user.name:''} className="drowpdown">
+                                    {(user&&user.role == 'admin')?
                                     <LinkContainer to="/admin/products">
                                      <NavDropdown.Item >Products Control</NavDropdown.Item>
                                     </LinkContainer>
