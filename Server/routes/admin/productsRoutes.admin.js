@@ -47,8 +47,6 @@ router.post('/', async (request, response, next) => {
     try {
         let product = new Product(request.body);
         await product.save();
-        //store product in selected categories
-        await storeProductInCategories(product)
         const newProduct=await product.populate('category').populate('tags').execPopulate()
         response.status(201).json({ success: true, data: newProduct });
         next();
@@ -58,17 +56,6 @@ router.post('/', async (request, response, next) => {
     }
 });
 
-const storeProductInCategories=(product)=>
-{
-    product.populate('categories').execPopulate().then(()=>{
-        product.categories.forEach((category)=>{
-            category.products.push(product);
-            category.save();
-       })
-    }).catch((error)=>{
-        throw error
-    })
-}
 
 //update product 
 router.put('/:slug', async(request, response, next) => {
