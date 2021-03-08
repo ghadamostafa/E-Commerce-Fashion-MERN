@@ -9,7 +9,6 @@ MongoDB, Expressjs, React, Nodejs
 </p>
 
 
-
 ## Clone or download
 ```terminal
 $ git clone https://github.com/ghadamostafa/E-Commerce-Fashion-MERN.git
@@ -26,6 +25,14 @@ client/
    package.json
 ...
 ```
+## ERD
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/22663690/110275143-29273c00-7fd9-11eb-98d4-521607abe4fc.png" width="600">
+</p>
+
+## Website Demo
+https://drive.google.com/file/d/15jqjjU2RmDTuWuYg4zl07vyJy5Wa5LIX/view?usp=sharing
+
 
 # Usage (run fullstack app on your machine)
 
